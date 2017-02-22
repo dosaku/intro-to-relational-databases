@@ -67,7 +67,7 @@ def Post(env, resp):
     input = env['wsgi.input']
     length = int(env.get('CONTENT_LENGTH', 0))
     # If length is zero, post is empty - don't save it.
-    if length > 0:
+    if length > len('content='):
         postdata = input.read(length)
         fields = cgi.parse_qs(postdata)
         content = fields['content'][0]
