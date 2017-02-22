@@ -4,9 +4,6 @@
 
 import psycopg2
 
-## Database connection
-DB = psycopg2.connect('dbname=forum')
-
 ## Get posts from database.
 def GetAllPosts():
     '''Get all the posts from the database, sorted with the newest first.
@@ -17,10 +14,11 @@ def GetAllPosts():
       it was posted.
     '''
 
+    DB = psycopg2.connect('dbname=forum')
     cursor = DB.cursor()
     cursor.execute('select content, time from posts order by time desc')
     posts = [{'content': post[0], 'time': post[1]} for post in cursor.fetchall()]
-    cursor.close()
+    DB.close()
 
     return posts
 
@@ -31,7 +29,9 @@ def AddPost(content):
     Args:
       content: The text content of the new post.
     '''
+
+    DB = psycopg2.connect('dbname=forum')
     cursor = DB.cursor()
     cursor.execute('insert into posts values (%s)', (content,))
-    cursor.close()
     DB.commit()
+    DB.close()
