@@ -21,7 +21,7 @@ HTML_WRAP = '''\
       textarea { width: 400px; height: 100px; }
       div.post { border: 1px solid #999;
                  padding: 10px 10px;
-		 margin: 10px 20%%; }
+		             margin: 10px 20%%; }
       hr.postbound { width: 50%%; }
       em.date { color: #999 }
     </style>
@@ -104,4 +104,3 @@ def Dispatcher(env, resp):
 httpd = make_server('', 8000, Dispatcher)
 print "Serving HTTP on port 8000..."
 httpd.serve_forever()
-
