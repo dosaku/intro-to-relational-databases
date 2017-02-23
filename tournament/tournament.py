@@ -13,29 +13,24 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('delete from match;')
-    conn.commit()
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('delete from match;')
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('delete from player;')
-    conn.commit()
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('delete from player;')
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('select count(*) from player;')
-    count = cursor.fetchone()[0]
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('select count(*) from player;')
+        count = cursor.fetchone()[0]
     return count
 
 
@@ -48,11 +43,9 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('insert into player (name) values (%s);', (name,))
-    conn.commit()
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('insert into player (name) values (%s);', (name,))
 
 
 def playerStandings():
@@ -68,11 +61,10 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('select * from stats;')
-    stats = cursor.fetchall();
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('select * from stats;')
+        stats = cursor.fetchall();
     return stats;
 
 
@@ -83,11 +75,9 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute('insert into match values (%s, %s);', (winner, loser))
-    conn.commit()
-    conn.close()
+    with connect() as conn:
+        cursor = conn.cursor()
+        cursor.execute('insert into match values (%s, %s);', (winner, loser))
 
 
 def swissPairings():
