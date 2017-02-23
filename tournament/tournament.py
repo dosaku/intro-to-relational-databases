@@ -105,5 +105,12 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
+    pairings = []
+    standings = playerStandings()
+    while standings:
+        # Just need the id and name, drop last 2 fields (wins, matches)
+        p1 = standings.pop(0)[:2]
+        p2 = standings.pop(0)[:2]
+        pairings.append(p1 + p2);
+    return pairings
 

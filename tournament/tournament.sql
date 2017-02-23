@@ -39,32 +39,4 @@ create view Stats as
     from player, wins, games
     where player.id=wins.id and
           player.id=games.id
-    order by wins desc;
-
--- sample data to work with during dev
-insert into Player (name) values ('Ryan');
-insert into Player (name) values ('Allen');
-insert into Player (name) values ('Jon');
-insert into Player (name) values ('Laura');
-insert into Player (name) values ('Cam');
-insert into Player (name) values ('Cammie');
-
-insert into Match values (2, 1);
-insert into Match values (2, 3);
-insert into Match values (2, 4);
-insert into Match values (2, 5);
-insert into Match values (2, 6);
-
-insert into Match values (1, 3);
-insert into Match values (1, 4);
-insert into Match values (1, 5);
-insert into Match values (1, 6);
-
-insert into Match values (6, 3);
-insert into Match values (6, 4);
-insert into Match values (6, 5);
-
-insert into Match values (3, 4);
-insert into Match values (3, 5);
-
-insert into Match values (4, 5);
+    order by wins desc, id;
