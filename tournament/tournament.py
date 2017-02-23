@@ -73,7 +73,6 @@ def playerStandings():
     cursor.execute('select * from stats;')
     stats = cursor.fetchall();
     conn.close()
-
     return stats;
 
 
@@ -84,6 +83,11 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    conn = connect()
+    cursor = conn.cursor()
+    cursor.execute('insert into match values (%s, %s);', (winner, loser))
+    conn.commit()
+    conn.close()
 
 
 def swissPairings():
