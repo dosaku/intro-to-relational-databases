@@ -50,7 +50,7 @@ def registerPlayer(name):
     """
     conn = connect()
     cursor = conn.cursor()
-    cursor.execute('insert into player (name) values (%s)', (name,))
+    cursor.execute('insert into player (name) values (%s);', (name,))
     conn.commit()
     conn.close()
 
@@ -68,6 +68,13 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    conn = connect()
+    cursor = conn.cursor()
+    cursor.execute('select * from stats;')
+    stats = cursor.fetchall();
+    conn.close()
+
+    return stats;
 
 
 def reportMatch(winner, loser):
